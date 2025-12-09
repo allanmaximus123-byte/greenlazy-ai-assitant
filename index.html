@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenLazy AI Assistant</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -28,6 +28,7 @@
             padding: 15px;
             padding-bottom: 30px;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
         
         .container {
@@ -133,6 +134,9 @@
             font-size: 1rem;
             transition: all 0.3s;
             min-height: 52px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         #user-input:focus {
@@ -156,10 +160,15 @@
             gap: 8px;
             white-space: nowrap;
             min-height: 52px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
         }
         
         #send-btn:active {
             transform: scale(0.98);
+            background: linear-gradient(135deg, #0da46e 0%, #047857 100%);
         }
         
         /* Footer */
@@ -211,23 +220,18 @@
             border-radius: 8px;
         }
         
-        /* iPhone Specific */
-        @supports (-webkit-touch-callout: none) {
-            #user-input, #send-btn {
-                min-height: 48px;
-            }
-        }
-        
         /* Responsive Breakpoints */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
                 padding-bottom: 20px;
+                display: block;
             }
             
             .container {
                 border-radius: 16px;
                 margin-top: 0;
+                max-width: 100%;
             }
             
             .header-section {
@@ -289,10 +293,12 @@
             body {
                 padding: 8px;
                 align-items: stretch;
+                display: flex;
             }
             
             .container {
                 border-radius: 14px;
+                width: 100%;
             }
             
             .header-section {
@@ -370,12 +376,11 @@
             }
             
             .input-container {
-                flex-direction: column;
+                flex-direction: row;
             }
             
             #send-btn {
-                width: 100%;
-                justify-content: center;
+                width: auto;
             }
         }
         
@@ -383,6 +388,7 @@
         @media (max-height: 600px) and (orientation: landscape) {
             body {
                 padding: 10px;
+                display: flex;
             }
             
             #chat-box {
@@ -395,6 +401,13 @@
             
             .logo-text h1 {
                 font-size: 1.6rem;
+            }
+        }
+        
+        /* Fix for iOS zoom on input focus */
+        @media screen and (max-width: 768px) {
+            input, textarea {
+                font-size: 16px !important;
             }
         }
     </style>
@@ -429,7 +442,7 @@
                 
                 <!-- Input Area -->
                 <div class="input-container">
-                    <input type="text" id="user-input" placeholder="輸入問題...">
+                    <input type="text" id="user-input" placeholder="輸入問題..." autocomplete="off">
                     <button id="send-btn">
                         <i class="fas fa-paper-plane"></i>
                         發送
@@ -544,9 +557,6 @@
             }
         });
         
-        // Auto-focus input
-        userInput.focus();
-        
         // Adjust chat box height based on screen size
         function adjustChatHeight() {
             const screenHeight = window.innerHeight;
@@ -582,12 +592,10 @@
             questionIndex = (questionIndex + 1) % sampleQuestions.length;
         }, 4000);
         
-        // Prevent zoom on input focus on mobile
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-                e.preventDefault();
-            }
-        }, { passive: false });
+        // Auto-focus input after page loads
+        setTimeout(() => {
+            userInput.focus();
+        }, 500);
     </script>
 </body>
 </html>

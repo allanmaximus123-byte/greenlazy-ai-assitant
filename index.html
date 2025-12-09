@@ -1,7 +1,515 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenLazy 360° 銷售增長引擎</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #10b981;
+            text-decoration: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #065f46;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #374151;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .highlight {
+            color: #059669;
+            font-weight: 700;
+        }
+        
+        /* Chat Section */
+        .chat-section {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 25px;
+        }
+        
+        .chat-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        
+        #chat-box {
+            height: 400px;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f9fafb;
+        }
+        
+        .message {
+            margin-bottom: 16px;
+            max-width: 80%;
+            padding: 16px 20px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+        
+        .user-message {
+            background: #10b981;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .ai-message {
+            background: white;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 12px;
+        }
+        
+        #user-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        #user-input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        
+        #send-btn {
+            padding: 14px 30px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        #send-btn:hover {
+            background: #059669;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #065f46;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #10b981;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .problem-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 40px;
+        }
+        
+        .problem-box h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .card i {
+            font-size: 2.5rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+        
+        .solution-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+        }
+        
+        .loop {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            color: #059669;
+            border: 2px solid #10b981;
+        }
+        
+        .promise {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+            color: white;
+            border-radius: 16px;
+            margin-top: 40px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            #chat-box {
+                height: 300px;
+            }
+            
+            .loop {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* Typing animation */
+        .typing {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing span:nth-child(1) { animation-delay: -0.32s; }
+        .typing span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
 <body>
-    <h1 style="color:green;">GreenLazy TEST - Can you see this?</h1>
-    <p>If you see green text, HTML is working.</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="https://www.greenlazy.com" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>GreenLazy</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>GreenLazy <span class="highlight">360° 銷售增長引擎</span></h1>
+            <p>為客戶提供能與業績掛鉤的 Marketing 服務，實現「貨如輪轉」，讓客戶能專注於核心商業決策。</p>
+            
+            <!-- AI Assistant -->
+            <div class="chat-section">
+                <div class="chat-header">
+                    <h2><i class="fas fa-robot"></i> GreenLazy AI 助手</h2>
+                    <p>你好！我可以為你介紹我們的 360° 銷售增長引擎服務</p>
+                </div>
+                
+                <div id="chat-box">
+                    <div class="message ai-message">
+                        <strong>GreenLazy AI:</strong> 你好！我是 GreenLazy AI 助手。GreenLazy 為中小企業提供完整的 360° 銷售增長引擎服務，將 Marketing 成效直接與業績掛鉤。有什麼可以幫到你？
+                    </div>
+                </div>
+                
+                <div class="input-area">
+                    <input type="text" id="user-input" placeholder="輸入你的問題...">
+                    <button id="send-btn">發送</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Problem Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">這些情況是否似曾相識？</h2>
+            
+            <div class="problem-box">
+                <h3>問題往往在於：大多數 Marketing 顧問只完成了前半場</h3>
+                <p>市場調研 → 品牌定位 → 創意內容... 然後呢？❌ 客戶流向何處？ ❌ 業績是否提升？ ❌ 往往沒有人負責後續。</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>🤷‍♀️ 無從入手</h3>
+                    <p>想做 Marketing，卻不知從何下手</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>🤦‍♂️ 難見成效</h3>
+                    <p>投入後，總難見實際成效</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>🤦 轉化困難</h3>
+                    <p>獲得潛在客戶，卻無法有效轉化為業績</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Solution Section -->
+    <section class="section" style="background: #f8fafc;">
+        <div class="container">
+            <div class="solution-box">
+                <h2 style="color: #065f46; margin-bottom: 20px;">GreenLazy 完整🔁閉環系統服務</h2>
+                <p style="margin-bottom: 20px; font-size: 1.1rem;">我們不只談論 Marketing 理論，而是提供完整閉環系統服務：</p>
+                
+                <div class="loop">
+                    <div class="step">品牌定位</div>
+                    <div class="step">精準受眾</div>
+                    <div class="step">針對性創意</div>
+                    <div class="step">轉化監測</div>
+                    <div class="step">成交</div>
+                    <div class="step">系統再營銷</div>
+                </div>
+                
+                <p style="font-weight: 700; color: #065f46; margin-top: 20px; font-size: 1.2rem;">
+                    Marketing 成效直接與營業額掛鉤
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Promise Section -->
+    <section class="section">
+        <div class="container">
+            <div class="promise">
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px;">我們的承諾</h3>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    市場上罕有願為業績負責的 Marketing 夥伴 🌤️<br>
+                    <strong style="font-size: 1.4rem; display: block; margin-top: 15px;">
+                        而這正正是 GreenLazy 的承諾：唯有當你業績提升時 🏆，我們才真正完成工作。
+                    </strong>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 GreenLazy. 所有權利保留。</p>
+            <p style="margin-top: 10px; opacity: 0.9;">360° 銷售增長引擎 | 與業績掛鉤的 Marketing 服務</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Chat functionality
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        
+        // Add message to chat
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
+            messageDiv.innerHTML = `<strong>${isUser ? '你' : 'GreenLazy AI'}:</strong> ${text}`;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        
+        // Show typing indicator
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai-message';
+            typingDiv.innerHTML = `
+                <strong>GreenLazy AI:</strong> 正在思考
+                <span class="typing">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            `;
+            chatBox.appendChild(typingDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return typingDiv;
+        }
+        
+        // Send message function
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, true);
+            userInput.value = '';
+            
+            // Show typing indicator
+            const typingElement = showTyping();
+            
+            try {
+                // Send to backend API
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+                
+                const data = await response.json();
+                
+                // Remove typing indicator
+                typingElement.remove();
+                
+                // Add AI response
+                addMessage(data.reply || '感謝你的查詢！GreenLazy 專注於為企業提供 360° 銷售增長引擎服務，將 Marketing 成效直接與業績掛鉤。');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Remove typing indicator
+                typingElement.remove();
+                
+                // Show fallback response
+                addMessage('GreenLazy 致力於為中小企業提供完整的 Marketing 解決方案，從品牌定位到業績轉化，我們負責到底。想了解更多，請聯繫我們！');
+            }
+        }
+        
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+        
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Sample questions rotation
+        const sampleQuestions = [
+            '你們的服務如何與業績掛鉤？',
+            '什麼是 360° 銷售增長引擎？',
+            '與傳統 Marketing 公司有什麼不同？'
+        ];
+        
+        let questionIndex = 0;
+        setInterval(() => {
+            userInput.placeholder = `例如：${sampleQuestions[questionIndex]}`;
+            questionIndex = (questionIndex + 1) % sampleQuestions.length;
+        }, 3000);
+    </script>
 </body>
 </html>
